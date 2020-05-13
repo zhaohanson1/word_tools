@@ -1,13 +1,39 @@
 
+function isWhiteSpace(ch) {  
+    return (ch == ' ') || (ch == '\t') || (ch == '\n');
+}
+
 function wordCount(inputString) {
     /**
      * Count the number of words.
      * @param {string}  inputString     The input text
      * @return {int}    The number of words in inputString
+     *                  If input is invalid, return -1;
      */
 
-    // TODO
-    return 0;
+    if (typeof inputString != 'string')
+        return -1;
+    
+    var count=0; 
+    var i=0;
+    while (i<inputString.length) {
+        var ch = inputString[i];
+        while (i<inputString.length && isWhiteSpace(ch)) {
+            ch = inputString[++i];
+        }
+        if (i>=inputString.length) {
+            break;
+        }
+
+        while (i<inputString.length && !isWhiteSpace(ch)) {
+            console.log(ch);
+            ch = inputString[++i];
+        }
+        console.log(ch);
+        count++;
+    }
+    
+    return count;
 }
 
 function wordDiff(input1, input2) {
@@ -30,3 +56,5 @@ function wordReplace(inputString, toReplace, replace){
      */
     return '';
 }
+
+wordCount('A')

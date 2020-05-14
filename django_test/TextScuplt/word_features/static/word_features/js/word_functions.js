@@ -26,10 +26,8 @@ function wordCount(inputString) {
         }
 
         while (i<inputString.length && !isWhiteSpace(ch)) {
-            console.log(ch);
             ch = inputString[++i];
         }
-        console.log(ch);
         count++;
     }
     
@@ -46,15 +44,31 @@ function wordDiff(input1, input2) {
     return 0;
 }
 
-function wordReplace(inputString, toReplace, replace){
+function replaceNext(inputString, startIndex, rString, repl) {
     /**
-     * Replace a character pattern with some other characters
+     * Replace the next instance of the pattern starting at startIndex
      * @param {string} inputString      The input text
-     * @param {object} toReplace        The regex pattern to replace
-     * @param {string} replace          The replacement string
+     * @param {int} startIndex          Starting index, inclusive
+     * @param {string} rString          The regex pattern as a string
+     * @param {string} repl          The replacement string
      * @return {string}     The resulting string
      */
-    return '';
+
+    if (rString == '')  return inputString;
+    var substr1 = inputString.substring(0, startIndex);
+    var substr2 = inputString.substring(startIndex);
+    substr2 = substr2.replace(new RegExp(rString), repl);
+    return substr1 + substr2;
 }
 
-wordCount('A')
+function replaceAll(inputString, rString, repl){
+    /**
+     * Replace all substrings that match a pattern
+     * @param {string} inputString      The input text
+     * @param {string} rString          The regex pattern as a string
+     * @param {string} repl          The replacement string
+     * @return {string}     The resulting string
+     */
+    if (rString == '')  return inputString;
+    return inputString.replace(new RegExp(rString, 'g'), repl);
+}

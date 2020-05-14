@@ -44,16 +44,31 @@ function wordDiff(input1, input2) {
     return 0;
 }
 
-function wordReplace(inputString, rString, replace){
+function replaceNext(inputString, startIndex, rString, repl) {
+    /**
+     * Replace the next instance of the pattern starting at startIndex
+     * @param {string} inputString      The input text
+     * @param {int} startIndex          Starting index, inclusive
+     * @param {string} rString          The regex pattern as a string
+     * @param {string} repl          The replacement string
+     * @return {string}     The resulting string
+     */
+
+    if (rString == '')  return inputString;
+    var substr1 = inputString.substring(0, startIndex);
+    var substr2 = inputString.substring(startIndex);
+    substr2 = substr2.replace(new RegExp(rString), repl);
+    return substr1 + substr2;
+}
+
+function replaceAll(inputString, rString, repl){
     /**
      * Replace all substrings that match a pattern
      * @param {string} inputString      The input text
      * @param {string} rString          The regex pattern as a string
-     * @param {string} replace          The replacement string
+     * @param {string} repl          The replacement string
      * @return {string}     The resulting string
      */
-    if (rString == '') 
-        return inputString;
-    var re = new RegExp(rString, 'g');
-    return inputString.replace(re, replace);
+    if (rString == '')  return inputString;
+    return inputString.replace(new RegExp(rString, 'g'), repl);
 }

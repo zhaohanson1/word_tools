@@ -2,29 +2,28 @@ function isWhiteSpace(ch) {
     return (ch == ' ') || (ch == '\t') || (ch == '\n');
 }
 
+/**
+ * Count the number of words.
+ * @param {string}  inputString     The input text
+ * @returns {int}    The number of words in inputString
+ *                  If input is invalid, return -1;
+ */
 function wordCount(inputString) {
-    /**
-     * Count the number of words.
-     * @param {string}  inputString     The input text
-     * @return {int}    The number of words in inputString
-     *                  If input is invalid, return -1;
-     */
-
     if (typeof inputString != 'string')
         return -1;
     
-    var count=0; 
-    var i=0;
-    while (i<inputString.length) {
-        var ch = inputString[i];
-        while (i<inputString.length && isWhiteSpace(ch)) {
+    let count = 0; 
+    let i = 0;
+    while (i < inputString.length) {
+        let ch = inputString[i];
+        while (i < inputString.length && isWhiteSpace(ch)) {
             ch = inputString[++i];
         }
-        if (i>=inputString.length) {
+        if (i >= inputString.length) {
             break;
         }
 
-        while (i<inputString.length && !isWhiteSpace(ch)) {
+        while (i < inputString.length && !isWhiteSpace(ch)) {
             ch = inputString[++i];
         }
         count++;
@@ -34,48 +33,72 @@ function wordCount(inputString) {
 }
 
 class DiffTemplate {
+
     constructor() {};
 
-    diff(input1, input2) {
-        /**
-         * Return the index ranges where the text differs
-         * @param {string} input1       The first text
-         * @param {string} input2       The second text
-         * @return {Array.<Array>}      A list of ranges
-         */
-        var elems1 = this.splitIntoElements(input1);
-        var elems2 = this.splitIntoElements(input2);
-
-        var endValues = this.getTrimmedBounds(elems1, elems2);
-        var start = endValues[0];
-        var elems1End = endValues[1];
-        var elems2End = endValues[2];
-
-        var C = this.getLCSArray(elems1, elems2, start, elems1End, elems2End);
-        this.printDiff(C, elems1, elems2, C.length-1, (C[0].length)-1, elems1End, elems2End);
-
-        var lcsLen = C[C.length-1][(C[0].length)-1]+ (elems1.length-C.length+1);
-        console.log("Longest subsequence is: " +  lcsLen.toString());
-        return 0;
+    /**
+     * Return the index ranges where the text differs
+     * @param {string} input1       The first text
+     * @param {string} input2       The second text
+     * @returns {Array.<Array>}      A list of ranges
+     * @memberof DiffTemplate
+     */
+    diff(input1, input2) {   
+        let X = this.splitSequence(input1);
+        let Y = this.splitSequence(input2);
+        let [C, start, xEnd, yEnd] = this.seqToLCSAndBounds(X, Y);
+        let q = this.getDiffRanges(C,X,Y,start);
+        this.printDiffAll(C,X,Y,start,xEnd, yEnd);
+        console.log('Longest subsequence is: '+this.getLCSLength(C, X).toString());
+        console.log(q);
+        return q;
     }
-    
-    getLCSArray(elems1, elems2, start, elems1End, elems2End) {
-        
-        // Intialize DP array
-        var C = new Array(elems1End-start+2);
-        for (var i = start-1; i <= elems1End; i++) {
-            var idx = i-start+1;
-            C[idx] = new Array(elems2End-start+2);
-            C[idx][0] = 0;
+
+
+    getLCSLength(C, X) {
+        return C[C.length-1][(C[0].length)-1]+ (X.length-C.length+1);
+    }
+
+
+    /**
+     * @param {string} input1
+     * @param {string} input2
+     * @returns {Array<Array.<number>|number}
+     * @memberof DiffTemplate
+     */
+    seqToLCSAndBounds(X, Y) {
+        let [start, xEnd, yEnd] = this.getTrimmedBounds(X, Y);
+        let C = this.computeLCSArray(X, Y, start, xEnd, yEnd);
+        return [C, start, xEnd, yEnd];
+    }
+
+
+    /**
+     * Computes the DP array of the longest common subsequence for X and Y,
+     * ignoring duplicate lines from 0 to start and xEnd and yEnd to X.length
+     * and Y.length, respectively
+     * @param {Array.<String>} X
+     * @param {Array.<String>} Y
+     * @param {number} start
+     * @param {number} xEnd
+     * @param {number} yEnd
+     * @returns {Array.<number>}
+     * @memberof DiffTemplate
+     */
+    computeLCSArray(X, Y, start, xEnd, yEnd) {
+        /** Intialize DP array */ 
+        let C = new Array(xEnd-start+2);
+        for (let i = 0; i < xEnd-start+2; i++) {
+            C[i] = new Array(yEnd-start+2);
+            C[i][0] = 0;
         }        
         C[0].fill(0);
 
-        // Finds Longest Common Subsequence length
-        for (var i = start; i <= elems1End; i++) {
-            var idx = i-start+1;
-            for (var j = start; j <= elems2End; j++) {
-                var jdx = j-start+1;
-                if (this.isEqual(elems1[i], elems2[j])) {
+        for (let i = start; i <= xEnd; i++) {
+            let idx = i-start+1;
+            for (let j = start; j <= yEnd; j++) {
+                let jdx = j-start+1;
+                if (this.isEqual(X[i], Y[j])) {
                     C[idx][jdx] = C[idx-1][jdx-1] + 1
                 } else {
                     C[idx][jdx] = Math.max(C[idx-1][jdx], C[idx][jdx-1])
@@ -85,30 +108,148 @@ class DiffTemplate {
         return C;
     }
 
-    printDiff(C, X, Y, i, j, elems1End, elems2End) {
-        if (i > 0 && j > 0 && this.isEqual(X[i], Y[j])) {
-            this.printDiff(C, X, Y, i-1, j-1);
-            console.log("  " + X[i]);
-        } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
-            this.printDiff(C, X, Y, i, j-1, elems1End, elems2End);
-            console.log("+ " + Y[j]);
-        } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
-            this.printDiff(C, X, Y, i-1, j, elems1End, elems2End);
-            console.log("- " + X[i]);
-        } else {
-            return;
+
+    printCommonStart(X, Y, start) {
+        for (let i=0; i<start; i++) {
+            console.log(i.toString()+' '+X[i]+'   '+Y[i]);
         }
     }
+
+
+    printCommonEnd(X,Y,xEnd,yEnd) {
+        let endLength = X.length-1-xEnd;
+        for (let i=1; i<=endLength; i++) {
+            console.log(
+                (xEnd+i+1).toString()
+                + '   '
+                + X[xEnd+i]
+                + '   '
+                + Y[yEnd+i]
+            );
+        }
+    }
+
+
+    /**
+     * Backtrack the LCS DP array recursively and print the path
+     *
+     * @param {Array.<Array.<number>>}  C       The LCS array
+     * @param {Array.<String>}  X       The first string
+     * @param {Array.<String>}Y         The second string
+     * @param {number} i    The current row index in path
+     * @param {number} j    The current column index in path
+     * @param {number} start    The trimmed start bound
+     * @returns
+     * @memberof DiffTemplate
+     */
+    printDiff(C, X, Y, i, j, start) {
+        let plus = [];
+        let minus = [];
+        let idx = i-1+start;
+        let jdx = j-1+start;
+        if (i > 0 && j > 0 && this.isEqual(X[idx], Y[jdx])) {
+            let l = this.printDiff(C, X, Y, i-1, j-1, start);
+            plus = l[0];
+            minus = l[1];
+            console.log(i.toString() + '   ' + X[idx] + '   ' + X[idx]);
+        } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
+            let l = this.printDiff(C, X, Y, i, j-1, start);
+            plus = l[0];
+            minus = l[1];
+            plus.push(jdx);
+            console.log(j.toString() + '       + ' + Y[jdx]);
+        } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
+            let l = this.printDiff(C, X, Y, i-1, j, start);
+            plus = l[0];
+            minus = l[1];
+            minus.push(idx);
+            console.log(i.toString() + ' - ' + X[idx]);  
+        } 
+        return [plus, minus];
+    }
+
+
+    printDiffAll(C, X, Y, start, xEnd, yEnd) {
+        this.printCommonStart(X, Y, start);
+        this.printDiff(C, X, Y, C.length-1, (C[0].length)-1, start);
+        this.printCommonEnd(X, Y, xEnd, yEnd);
+    }
+
+
+    /**
+     * Backtrack the LCS DP Array to compute the diff ranges.
+     *
+     * @param {Array.<Array.<number>>} C
+     * @param {String} X
+     * @param {String} Y
+     * @param {number} start
+     * @returns {Array.<Array.<number>>}
+     * @memberof DiffTemplate
+     */
+    getDiffRanges(C,X,Y,start) {
+        var plus = [];
+        var minus = [];
+        const seqType = {SAME: 1, PLUS: 2, MINUS: 3};
+        const updateRanges = () => {
+            if (prevType == seqType.PLUS) {
+                plus.unshift([jdx+1, endRange]);
+            } else if (prevType == seqType.MINUS) {
+                minus.unshift([idx+1, endRange]);
+            }
+        };
+        let i = C.length-1;
+        let j = (C[0].length)-1;
+        var currType, endRange;
+        var prevType = -1;
+
+        while (i >= 0 && j >= 0) {
+            var idx = i-1+start;
+            var jdx = j-1+start;
+            if (i > 0 && j > 0 && this.isEqual(X[idx], Y[jdx])) {
+                currType = seqType.SAME;
+                i -= 1;
+                j -= 1;
+            } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
+                currType = seqType.PLUS;
+                j -= 1;
+            } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
+                currType = seqType.MINUS;
+                i -= 1;
+            } else {
+                updateRanges();
+                break;
+            }
+
+            if (currType != prevType) {
+                updateRanges();
+                if (currType == seqType.PLUS) {
+                    endRange = jdx;
+                } else if (currType == seqType.MINUS) {
+                    endRange = idx;
+                }
+                prevType = currType;
+            }
+        }
+        return [plus, minus];
+    }
     
-    getTrimmedBounds(elems1, elems2) {
-        var start = 0;
-        var m_end = elems1.length-1;
-        var n_end = elems2.length-1;
+    getTrimmedBounds(X, Y) {
+        /**
+         * Returns the indices of the sequences after skipping the beginning
+         * and end duplicate elements. 
+         * @param {Array}
+         * @param {Array}
+         * @returns {Array(3)} 
+         */
+
+        let start = 0;
+        let m_end = X.length-1;
+        let n_end = Y.length-1;
         // trim off the matching items at the beginning
         while (
             start <= m_end 
             && start <= n_end 
-            && this.isEqual(elems1[start], elems2[start])
+            && this.isEqual(X[start], Y[start])
         ) {
             start++;
         }
@@ -116,7 +257,7 @@ class DiffTemplate {
         while (
             start <= m_end 
             && start <= n_end 
-            && this.isEqual(elems1[m_end], elems2[n_end])
+            && this.isEqual(X[m_end], Y[n_end])
         ) {
             m_end--;
             n_end--;
@@ -124,7 +265,7 @@ class DiffTemplate {
         return [start, m_end, n_end];
     }
 
-    splitIntoElements(input) {
+    splitSequence(input) {
         return [input];
     }
 
@@ -135,7 +276,7 @@ class DiffTemplate {
 
 class LineDiff extends DiffTemplate {
 
-    splitIntoElements(input) {
+    splitSequence(input) {
         return input.split('\n');
     }
 
@@ -143,48 +284,31 @@ class LineDiff extends DiffTemplate {
         return line1 === line2;
     }
 }
-/*
-var tmp = new LineDiff();
-var a = "abc\n\
-def\n\
-abc\n\
-def\n\
-ghi"
 
-var b = "abc\n\
-zzz\n\
-abc\n\
-zzz\n\
-ghi"
-
-tmp.diff(a,b);
-*/
-
+/**
+ * Replace the next instance of the pattern starting at startIndex
+ * @param {string} inputString      The input text
+ * @param {int} startIndex          Starting index, inclusive
+ * @param {string} rString          The regex pattern as a string
+ * @param {string} repl          The replacement string
+ * @returns {string}     The resulting string
+ */
 function replaceNext(inputString, startIndex, rString, repl) {
-    /**
-     * Replace the next instance of the pattern starting at startIndex
-     * @param {string} inputString      The input text
-     * @param {int} startIndex          Starting index, inclusive
-     * @param {string} rString          The regex pattern as a string
-     * @param {string} repl          The replacement string
-     * @return {string}     The resulting string
-     */
-
     if (rString == '')  return inputString;
-    var substr1 = inputString.substring(0, startIndex);
-    var substr2 = inputString.substring(startIndex);
+    let substr1 = inputString.substring(0, startIndex);
+    let substr2 = inputString.substring(startIndex);
     substr2 = substr2.replace(new RegExp(rString), repl);
     return substr1 + substr2;
 }
 
+/**
+ * Replace all substrings that match a pattern
+ * @param {string} inputString      The input text
+ * @param {string} rString          The regex pattern as a string
+ * @param {string} repl          The replacement string
+ * @returns {string}     The resulting string
+ */
 function replaceAll(inputString, rString, repl){
-    /**
-     * Replace all substrings that match a pattern
-     * @param {string} inputString      The input text
-     * @param {string} rString          The regex pattern as a string
-     * @param {string} repl          The replacement string
-     * @return {string}     The resulting string
-     */
     if (rString == '')  return inputString;
     return inputString.replace(new RegExp(rString, 'g'), repl);
 }

@@ -208,3 +208,5 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/django,python,windows,virtualenv
 
 elevator
+./django_test/TextScuplt/word_features/js_tests/qunit-2.10.0.js
+.gitignore

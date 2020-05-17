@@ -11,7 +11,7 @@ QUnit.test('No difference', function(assert) {
 });
 
 
-QUnit.test('Test case 1: Change line', function(assert) {
+QUnit.test('Line Test case 1: Change line', function(assert) {
     let ld = new LineDiff();
     let a = `abc
             def
@@ -28,7 +28,7 @@ QUnit.test('Test case 1: Change line', function(assert) {
     assert.deepEqual(acutal, expected);
 });
 
-QUnit.test('Test case 2: Insertion, Deletion, and Change', function(assert) {
+QUnit.test('Line Test case 2: Insertion, Deletion, and Change', function(assert) {
     let ld = new LineDiff();
     let a = `abc
             def
@@ -49,7 +49,7 @@ QUnit.test('Test case 2: Insertion, Deletion, and Change', function(assert) {
     assert.deepEqual(acutal, expected);
 });
 
-QUnit.test('Test case 3: Multiline ', function(assert) {
+QUnit.test('Line Test case 3: Multiline ', function(assert) {
     let ld = new LineDiff();
     let a = `This part of the
 document has stayed the

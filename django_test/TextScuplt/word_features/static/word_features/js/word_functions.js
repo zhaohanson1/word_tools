@@ -34,9 +34,20 @@ function wordCount(inputString) {
     return count;
 }
 
+
+/**
+ * Abstract Diff Class
+ * @abstract
+ * @class DiffTemplate
+ */
 class DiffTemplate {
 
-    constructor() {};
+    /** @abstract @constructor */
+    constructor() {
+        if (this.constructor == DiffTemplate) {
+            throw new Error("Abstract classes can't be instantiated.");
+        }
+    };
 
     /**
      * Return the index ranges where the text differs
@@ -46,8 +57,8 @@ class DiffTemplate {
      * @memberof DiffTemplate
      */
     diff(input1, input2) {   
-        let X = this.splitSequence(input1);
-        let Y = this.splitSequence(input2);
+        let X = this.splitIntoSequence(input1);
+        let Y = this.splitIntoSequence(input2);
         let [C, start, xEnd, yEnd] = this.seqToLCSAndBounds(X, Y);
         let q = this.getDiffRanges(C,X,Y,start);
         //this.printDiffAll(C,X,Y,start,xEnd, yEnd);
@@ -175,8 +186,8 @@ class DiffTemplate {
 
 
     /**
-     *
-     *
+     * Prints both sequences, marking the elements 
+     * that are added and removed.
      * @param {Array.<Array.<number>>} C
      * @param {Array.<String>} X
      * @param {Array.<String>} Y
@@ -194,7 +205,6 @@ class DiffTemplate {
 
     /**
      * Backtrack the LCS DP Array to compute the diff ranges.
-     *
      * @param {Array.<Array.<number>>} C
      * @param {Array.<String>} X
      * @param {Array.<String>} Y
@@ -281,22 +291,47 @@ class DiffTemplate {
         return [start, m_end, n_end];
     }
 
-    splitSequence(input) {
-        return [input];
+    
+    /** @abstract */
+    splitIntoSequence(input) {
+        throw new Error("Method 'splitIntoSequence()' must be implemented.");
     }
 
+
+    /** @abstract */
     isEqual(elem1, elem2) {
-        return elem1 == elem2;
+        throw new Error("Method 'splitIntoSequence()' must be implemented.");
     }
 }
 
 
+/**
+ * Finds diff by line
+ *
+ * @class LineDiff
+ * @extends {DiffTemplate}
+ */
 class LineDiff extends DiffTemplate {
 
-    splitSequence(input) {
+    
+    /**
+     * Separates sequence by line breaks
+     * @param {String} input
+     * @returns {Array.<String>}
+     * @memberof LineDiff
+     */
+    splitIntoSequence(input) {
         return input.split('\n');
     }
 
+    
+    /**
+     * Returns if two strings are equal
+     * @param {String} line1
+     * @param {String} line2
+     * @returns {boolean}
+     * @memberof LineDiff
+     */
     isEqual(line1, line2) {
         return line1 === line2;
     }

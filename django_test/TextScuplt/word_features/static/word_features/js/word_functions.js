@@ -5,13 +5,14 @@ function isWhiteSpace(ch) {
 /**
  * Count the number of words.
  * @param {string}  inputString     The input text
- * @returns {int}    The number of words in inputString
- *                  If input is invalid, return -1;
+ * @returns {number}    The number of words in inputString
+ *                      If input is invalid, return -1;
  */
 function wordCount(inputString) {
+
     if (typeof inputString != 'string')
         return -1;
-    
+
     let count = 0; 
     let i = 0;
     while (i < inputString.length) {
@@ -19,6 +20,7 @@ function wordCount(inputString) {
         while (i < inputString.length && isWhiteSpace(ch)) {
             ch = inputString[++i];
         }
+
         if (i >= inputString.length) {
             break;
         }
@@ -28,7 +30,7 @@ function wordCount(inputString) {
         }
         count++;
     }
-    
+
     return count;
 }
 
@@ -48,9 +50,9 @@ class DiffTemplate {
         let Y = this.splitSequence(input2);
         let [C, start, xEnd, yEnd] = this.seqToLCSAndBounds(X, Y);
         let q = this.getDiffRanges(C,X,Y,start);
-        this.printDiffAll(C,X,Y,start,xEnd, yEnd);
-        console.log('Longest subsequence is: '+this.getLCSLength(C, X).toString());
-        console.log(q);
+        //this.printDiffAll(C,X,Y,start,xEnd, yEnd);
+        //console.log('Longest subsequence is: '+this.getLCSLength(C, X).toString());
+        //console.log(q);
         return q;
     }
 
@@ -61,8 +63,10 @@ class DiffTemplate {
 
 
     /**
-     * @param {string} input1
-     * @param {string} input2
+     * Takes two sequences and converts them to the LCS array and the bounds
+     * after skipping duplicate lines at the ends.
+     * @param {Array.<String>} X
+     * @param {Array.<String>} Y
      * @returns {Array<Array.<number>|number}
      * @memberof DiffTemplate
      */
@@ -75,7 +79,7 @@ class DiffTemplate {
 
     /**
      * Computes the DP array of the longest common subsequence for X and Y,
-     * ignoring duplicate lines from 0 to start and xEnd and yEnd to X.length
+     * ignoring duplicate lines at 0 to start and at xEnd and yEnd to X.length
      * and Y.length, respectively
      * @param {Array.<String>} X
      * @param {Array.<String>} Y
@@ -94,6 +98,7 @@ class DiffTemplate {
         }        
         C[0].fill(0);
 
+        /** LCS Algorithm */
         for (let i = start; i <= xEnd; i++) {
             let idx = i-start+1;
             for (let j = start; j <= yEnd; j++) {
@@ -120,7 +125,7 @@ class DiffTemplate {
         let endLength = X.length-1-xEnd;
         for (let i=1; i<=endLength; i++) {
             console.log(
-                (xEnd+i+1).toString()
+                (xEnd+i).toString()
                 + '   '
                 + X[xEnd+i]
                 + '   '
@@ -151,24 +156,35 @@ class DiffTemplate {
             let l = this.printDiff(C, X, Y, i-1, j-1, start);
             plus = l[0];
             minus = l[1];
-            console.log(i.toString() + '   ' + X[idx] + '   ' + X[idx]);
+            console.log((i-1).toString() + '   ' + X[idx]);
         } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
             let l = this.printDiff(C, X, Y, i, j-1, start);
             plus = l[0];
             minus = l[1];
             plus.push(jdx);
-            console.log(j.toString() + '       + ' + Y[jdx]);
+            console.log((j-1).toString() + ' + ' + Y[jdx]);
         } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
             let l = this.printDiff(C, X, Y, i-1, j, start);
             plus = l[0];
             minus = l[1];
             minus.push(idx);
-            console.log(i.toString() + ' - ' + X[idx]);  
+            console.log((i-1).toString() + ' - ' + X[idx]);  
         } 
         return [plus, minus];
     }
 
 
+    /**
+     *
+     *
+     * @param {Array.<Array.<number>>} C
+     * @param {Array.<String>} X
+     * @param {Array.<String>} Y
+     * @param {number} start
+     * @param {number} xEnd
+     * @param {number} yEnd
+     * @memberof DiffTemplate
+     */
     printDiffAll(C, X, Y, start, xEnd, yEnd) {
         this.printCommonStart(X, Y, start);
         this.printDiff(C, X, Y, C.length-1, (C[0].length)-1, start);
@@ -180,8 +196,8 @@ class DiffTemplate {
      * Backtrack the LCS DP Array to compute the diff ranges.
      *
      * @param {Array.<Array.<number>>} C
-     * @param {String} X
-     * @param {String} Y
+     * @param {Array.<String>} X
+     * @param {Array.<String>} Y
      * @param {number} start
      * @returns {Array.<Array.<number>>}
      * @memberof DiffTemplate
@@ -233,15 +249,15 @@ class DiffTemplate {
         return [plus, minus];
     }
     
-    getTrimmedBounds(X, Y) {
-        /**
-         * Returns the indices of the sequences after skipping the beginning
-         * and end duplicate elements. 
-         * @param {Array}
-         * @param {Array}
-         * @returns {Array(3)} 
-         */
 
+    /**
+     * Returns the indices of the sequences after skipping the beginning
+     * and end duplicate elements. 
+     * @param {Array.<String>} X
+     * @param {Array.<String>} Y
+     * @returns {Array.<number>} 
+     */
+    getTrimmedBounds(X, Y) {
         let start = 0;
         let m_end = X.length-1;
         let n_end = Y.length-1;
@@ -274,6 +290,7 @@ class DiffTemplate {
     }
 }
 
+
 class LineDiff extends DiffTemplate {
 
     splitSequence(input) {
@@ -284,6 +301,7 @@ class LineDiff extends DiffTemplate {
         return line1 === line2;
     }
 }
+
 
 /**
  * Replace the next instance of the pattern starting at startIndex

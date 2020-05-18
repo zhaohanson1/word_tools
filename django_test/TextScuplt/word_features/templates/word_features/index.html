@@ -5,23 +5,34 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
         crossorigin="anonymous">
-    <link rel='stylesheet' href={% static 'word_features/css/index/.css' %}>
+    <link rel='stylesheet' href={% static 'word_features/css/index.css' %}>
     <title>{% block title %}Template Title{% endblock %}</title>
 </head>
 
 <body>
     <div id='header'>
         {% block header %}
-        <ul>
-            {% for x in y %}
-            <li> {{% x.name %}} </li>
-        </ul>
+        <nav class='navbar navbar-expand-md navbar-dark bg-dark'>
+            <span class='navbar-brand' id='logo'>HEADER TEXT</span>
+        <div class='collapse navbar-collapse'>
+            <ul class='navbar-nav'>
+                {% for i in test%}
+                <li class='navbar-item' style='color:white'> Test{{forloop.counter}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        </nav>
         {% endblock %}
     </div>
 
     <div id="content">
-        {% block content %}{% endblock %}
+        {% block content %}
+        <div class=' d-flex justify-content-center align-items-center'> 
+        TEST 
+        </div>
+        {% endblock %}
     </div>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
         crossorigin="anonymous"></script>

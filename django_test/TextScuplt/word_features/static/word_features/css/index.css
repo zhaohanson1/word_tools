@@ -1,0 +1,16 @@
+body {
+    margin: 0 auto;
+}
+
+#header {
+    border: 1px solid black;
+}
+
+
+#content {
+    border: 1px solid black;
+}
+
+#logo {
+    margin-left: 10%;
+}

@@ -4,4 +4,8 @@ from django.template import loader
 
 
 def index(request):
-    return render(request, 'word_features/index.html')
+    context = {
+        'foo': 'bar',
+        'test': [1,2,3,4]
+    }
+    return render(request, 'word_features/index.html', context)

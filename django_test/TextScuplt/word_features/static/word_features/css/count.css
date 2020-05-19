@@ -1,0 +1,39 @@
+#content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 60px auto;
+}
+
+#content div {
+    border: 1px solid red;
+}
+
+#text-div {
+    flex: 75%;
+}
+
+#count-info {
+    flex: 25%;
+}
+
+#textarea {
+    height: 75%;
+    width: 90%;
+    margin: 1em 1em 2em 1em;
+    resize: none;
+}
+
+.count-display {
+    margin: auto;
+    padding: 1em;
+}
+
+.count-label {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.count-value {
+    text-align: center;
+    font-size: 2em;
+}

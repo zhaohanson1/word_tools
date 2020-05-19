@@ -9,3 +9,6 @@ def index(request):
         'test': [1,2,3,4]
     }
     return render(request, 'word_features/index.html', context)
+
+def count(request):
+    return render(request, 'word_features/word_count.html')

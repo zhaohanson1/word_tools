@@ -4,11 +4,11 @@ from django.template import loader
 
 
 def index(request):
-    context = {
-        'foo': 'bar',
-        'test': [1,2,3,4]
-    }
-    return render(request, 'word_features/index.html', context)
+    context = {}
+    return render(request, 'word_features/word_template.html', context)
 
 def count(request):
     return render(request, 'word_features/word_count.html')
+
+def replace(request):
+    return render(request, 'word_features/word_replace.html')

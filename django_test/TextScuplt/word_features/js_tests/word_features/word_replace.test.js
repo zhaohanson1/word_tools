@@ -71,3 +71,15 @@ QUnit.test('Test regexp', function(assert) {
     var expectedText = 'foobareee';
     assert.equal(replaceAll(inputText, '\\d', 'e'), expectedText);
 });
+
+
+QUnit.module('Word Replace Regression Test');
+
+QUnit.test('Escape special regex characters', function(assert) {
+    /**
+     * SyntaxError: Invalid regular expression: /a\/ of pattern at new RegExp at replaceAll 
+     */
+    var inputText = 'fooba\\r';
+    var expectedText = 'foober';
+    assert.equal(replaceAll(inputText, 'a\\', 'e'), expectedText);
+});

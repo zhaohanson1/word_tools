@@ -4,8 +4,8 @@ QUnit.test('Nothing to replace', function(assert) {
     var inputText = 'Hello World!';
     var expectedText = 'Hello World!';
 
-    assert.equal(replaceAll(inputText, 0, '', 'A'), expectedText);
-    assert.equal(replaceAll(inputText, 1, '', 'A'), expectedText);
+    assert.equal(replaceNext(inputText, 0, '', 'A'), expectedText);
+    assert.equal(replaceNext(inputText, 1, '', 'A'), expectedText);
 });
 
 
@@ -61,7 +61,7 @@ QUnit.test('Multiple replacements', function(assert) {
     assert.equal(replaceAll(inputText, 'barb', 'b'), expectedText);
 });
 
-
+/*
 QUnit.test('Test regexp', function(assert) {
     var inputText = 'foobar';
     var expectedText = 'feeber';
@@ -71,3 +71,4 @@ QUnit.test('Test regexp', function(assert) {
     var expectedText = 'foobareee';
     assert.equal(replaceAll(inputText, '\\d', 'e'), expectedText);
 });
+*/

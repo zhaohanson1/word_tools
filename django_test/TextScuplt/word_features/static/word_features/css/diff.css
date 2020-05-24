@@ -8,3 +8,9 @@
     width: 100%;
     resize: none;
 }
+
+#compare-button {
+    margin: auto;
+    margin-top: 1em;
+    max-width: 100px;
+}

@@ -1,0 +1,35 @@
+{% extends 'word_features/word_template.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel='stylesheet' href={% static 'word_features/css/diff.css' %}>
+{% endblock %}
+
+{% block title%} Text Diff {% endblock %}
+
+{% block content %}
+<form method='post'>
+<div class='d-sm-flex flex-column flex-wrap justify-content-center'>
+    <div class='px-4 pt-2 pb-2'>
+        <label for='text-1'>Text 1:</label>
+        <textarea id='text-1'
+            autocomplete='off' 
+            rows='8' 
+            wrap='off'></textarea>
+    </div>
+    <button id='compare-button' class='btn'>Compare</button>
+    <div class='px-4 py-2'>
+        <label for='text-2'>Text 2:</label>
+        <textarea id='text-1'
+            autocomplete='off' 
+            rows='8' 
+            wrap='off'></textarea>
+    </div>
+</div>
+<input type='hidden' id='diff-ranges' value=''>
+</form>
+{% endblock content %}
+
+{% block body_scripts %}
+<script src={% static 'word_features/js/word_functions.js' %}></script>
+{% endblock body_scripts %}

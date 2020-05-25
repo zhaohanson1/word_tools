@@ -1,0 +1,38 @@
+{% extends 'word_features/word_template.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel='stylesheet' href={% static 'word_features/css/diff.css' %}> 
+{% endblock %}
+{% block title%} Text Diff {% endblock %}
+
+
+{% block content %}
+<table>
+    {% for line1, line2 in both_text %}
+    <tr>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        
+        {% if forloop.counter0 in removed %}
+        <td class='removed'>
+        {% else %}
+        <td>
+        {% endif %}
+            {{ line1 }}
+        </td>
+        <td>
+            {{ forloop.counter }}
+        </td>
+        {% if forloop.counter0 in added %}
+        <td class='added'>
+        {% else %}
+        <td>
+        {% endif %}
+            {{ line2 }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

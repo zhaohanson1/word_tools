@@ -1,8 +1,8 @@
-QUnit.module('Word Diff');
+QUnit.module('Line Diff');
 
 
 QUnit.test('No difference', function(assert) {
-    let ld = new LineDiff;
+    var ld = new LineDiff();
     let a = 'Hello World!';
     let b = 'Hello World!';
     let acutal = ld.diff(a,b);
@@ -12,7 +12,7 @@ QUnit.test('No difference', function(assert) {
 
 
 QUnit.test('Line Test case 1: Change line', function(assert) {
-    let ld = new LineDiff();
+    var ld = new LineDiff();
     let a = `abc
             def
             abc
@@ -109,5 +109,22 @@ to this document.;`
 
     let acutal = ld.diff(a,b);
     let expected = [ [[0,5],[17,17],[25,28]],  [[9,13],[16,16]] ];
+    assert.deepEqual(acutal, expected);
+});
+
+QUnit.test('Line Test case 4: Oooga', function(assert) {
+    let ld = new LineDiff();
+    let a = `Oooga
+Oooga
+Oooga
+Oooga
+Oooga`
+    let b = `Oooga
+Oooga
+Booga
+Oooga
+Oooga`
+    let acutal = ld.diff(a,b);
+    let expected = [ [[2,2]], [[2,2]] ];
     assert.deepEqual(acutal, expected);
 });

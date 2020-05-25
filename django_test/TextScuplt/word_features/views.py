@@ -4,9 +4,11 @@ from django.template import loader
 
 from .forms import DiffForm
 
+import json
+import itertools
+
 def index(request):
-    context = {}
-    return render(request, 'word_features/word_template.html', context)
+    return render(request, 'word_features/word_template.html')
 
 def count(request):
     return render(request, 'word_features/word_count.html')
@@ -16,9 +18,35 @@ def replace(request):
 
 def diff(request):
     if request.method == 'POST':
-        form = DiffForm(request.POST)
-        if form.is_valid():
-            a = form.get('text_1')
-            b = form.get('text_2')
-            return render(request, 'word_features/diff_display.html')
-    return render(request, 'word_features/diff_input.html')
+        return display(request)
+    context = {
+        'form': DiffForm()
+    }
+    return render(request, 'word_features/diff_input.html', context)
+
+def display(request):
+    form = DiffForm(request.POST)
+    diff_ranges = json.loads(request.POST.get('ranges'))
+    text_1_list = request.POST['text_1'].split()
+    text_2_list = request.POST['text_2'].split()
+    both_text = itertools.zip_longest(text_1_list, text_2_list, fillvalue="")
+
+    added = set()
+    for r in diff_ranges[0]:
+        for i in range(r[0], r[1]+1):
+            added.add(i)
+    
+    removed = set()
+    for r in diff_ranges[1]:
+        for i in range(r[0], r[1]+1):
+            removed.add(i)
+
+    context = {
+        'text_1': text_1_list,
+        'text_2': text_2_list,
+        'both_text': both_text,
+        'added': added,
+        'removed': removed
+    }
+    
+    return render(request, 'word_features/diff_display.html', context)

@@ -14,3 +14,11 @@
     margin-top: 1em;
     max-width: 100px;
 }
+
+.added {
+    background-color: rgb(160, 255, 160);
+}
+
+.removed {
+    background-color: rgb(255, 160, 160);
+}

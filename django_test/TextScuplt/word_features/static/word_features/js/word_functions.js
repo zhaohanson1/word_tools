@@ -60,7 +60,52 @@ class DiffTemplate {
         let X = this.splitIntoSequence(input1);
         let Y = this.splitIntoSequence(input2);
         let [C, start, xEnd, yEnd] = this.seqToLCSAndBounds(X, Y);
-        let q = this.getDiffRanges(C,X,Y,start);
+
+        /** Backtrack the LCS DP Array to compute the diff ranges. */
+        var plus = [];
+        var minus = [];
+        const seqType = {SAME: 1, PLUS: 2, MINUS: 3};
+        const updateRanges = () => {
+            if (prevType == seqType.PLUS) {
+                plus.unshift([jdx+1, endRange]);
+            } else if (prevType == seqType.MINUS) {
+                minus.unshift([idx+1, endRange]);
+            }
+        };
+        let i = C.length-1;
+        let j = (C[0].length)-1;
+        var currType, endRange;
+        var prevType = -1;
+
+        while (i >= 0 && j >= 0) {
+            var idx = i-1+start;
+            var jdx = j-1+start;
+            if (i > 0 && j > 0 && this.isEqual(X[idx], Y[jdx])) {
+                currType = seqType.SAME;
+                i -= 1;
+                j -= 1;
+            } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
+                currType = seqType.PLUS;
+                j -= 1;
+            } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
+                currType = seqType.MINUS;
+                i -= 1;
+            } else {
+                updateRanges();
+                break;
+            }
+
+            if (currType != prevType) {
+                updateRanges();
+                if (currType == seqType.PLUS) {
+                    endRange = jdx;
+                } else if (currType == seqType.MINUS) {
+                    endRange = idx;
+                }
+                prevType = currType;
+            }
+        }
+        return [plus, minus];
         //this.printDiffAll(C,X,Y,start,xEnd, yEnd);
         //console.log('Longest subsequence is: '+this.getLCSLength(C, X).toString());
         //console.log(q);
@@ -202,63 +247,6 @@ class DiffTemplate {
         this.printCommonEnd(X, Y, xEnd, yEnd);
     }
 
-
-    /**
-     * Backtrack the LCS DP Array to compute the diff ranges.
-     * @param {Array.<Array.<number>>} C
-     * @param {Array.<String>} X
-     * @param {Array.<String>} Y
-     * @param {number} start
-     * @returns {Array.<Array.<number>>}
-     * @memberof DiffTemplate
-     */
-    getDiffRanges(C,X,Y,start) {
-        var plus = [];
-        var minus = [];
-        const seqType = {SAME: 1, PLUS: 2, MINUS: 3};
-        const updateRanges = () => {
-            if (prevType == seqType.PLUS) {
-                plus.unshift([jdx+1, endRange]);
-            } else if (prevType == seqType.MINUS) {
-                minus.unshift([idx+1, endRange]);
-            }
-        };
-        let i = C.length-1;
-        let j = (C[0].length)-1;
-        var currType, endRange;
-        var prevType = -1;
-
-        while (i >= 0 && j >= 0) {
-            var idx = i-1+start;
-            var jdx = j-1+start;
-            if (i > 0 && j > 0 && this.isEqual(X[idx], Y[jdx])) {
-                currType = seqType.SAME;
-                i -= 1;
-                j -= 1;
-            } else if (j > 0 && (i == 0 || C[i][j-1] >= C[i-1][j])) {
-                currType = seqType.PLUS;
-                j -= 1;
-            } else if (i > 0 && (j == 0 || C[i][j-1] < C[i-1][j])) {
-                currType = seqType.MINUS;
-                i -= 1;
-            } else {
-                updateRanges();
-                break;
-            }
-
-            if (currType != prevType) {
-                updateRanges();
-                if (currType == seqType.PLUS) {
-                    endRange = jdx;
-                } else if (currType == seqType.MINUS) {
-                    endRange = idx;
-                }
-                prevType = currType;
-            }
-        }
-        return [plus, minus];
-    }
-    
 
     /**
      * Returns the indices of the sequences after skipping the beginning

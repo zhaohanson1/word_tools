@@ -8,31 +8,39 @@
 
 
 {% block content %}
-<table>
+<table class='table table-hover table-sm' id='diff-table'>
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>Text 1</th>
+        <th>#</th>
+        <th>Text 2</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for line1, line2 in both_text %}
-    <tr>
-        <td>
-            {{ forloop.counter }}
-        </td>
-        
-        {% if forloop.counter0 in removed %}
-        <td class='removed'>
-        {% else %}
-        <td>
-        {% endif %}
-            {{ line1 }}
-        </td>
-        <td>
-            {{ forloop.counter }}
-        </td>
-        {% if forloop.counter0 in added %}
-        <td class='added'>
-        {% else %}
-        <td>
-        {% endif %}
-            {{ line2 }}
-        </td>
-    </tr>
+        <tr>
+            <th> {{ forloop.counter }} </th>
+            
+            {% if forloop.counter0 in removed %}
+            <td class='removed'>
+            {% else %}
+            <td>
+            {% endif %}
+                {{ line1 }}
+            </td>
+
+            <th> {{ forloop.counter }} </th>
+
+            {% if forloop.counter0 in added %}
+            <td class='added'>
+            {% else %}
+            <td>
+            {% endif %}
+                {{ line2 }}
+            </td>
+        </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endblock content %}

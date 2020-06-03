@@ -1,5 +1,5 @@
 #content {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 50px auto;
     border: 1px solid black;
 }
@@ -21,4 +21,24 @@
 
 .removed {
     background-color: rgb(255, 160, 160);
+}
+
+#diff-table {
+    margin-bottom: 0!important;
+    width: 100%;
+}
+
+#diff-table td, #diff-table th{
+    border: 0;
+}
+
+#diff-table tbody th {
+    font-weight: 400;
+    color: darkgray;
+    width:1%;
+    white-space:nowrap;
+}
+
+#diff-table tbody td {
+    width: 45%;
 }

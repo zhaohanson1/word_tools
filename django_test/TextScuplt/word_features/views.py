@@ -27,8 +27,8 @@ def diff(request):
 def display(request):
     form = DiffForm(request.POST)
     diff_ranges = json.loads(request.POST.get('ranges'))
-    text_1_list = request.POST['text_1'].split()
-    text_2_list = request.POST['text_2'].split()
+    text_1_list = request.POST['text_1'].split('\n')
+    text_2_list = request.POST['text_2'].split('\n')
     both_text = itertools.zip_longest(text_1_list, text_2_list, fillvalue="")
 
     added = set()

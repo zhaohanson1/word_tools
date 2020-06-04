@@ -45,7 +45,8 @@ def display(request):
         'text_2': text_2_list,
         'both_text': both_text,
         'added': added,
-        'removed': removed
+        'removed': removed,
+        'form': DiffForm()
     }
     
     return render(request, 'word_features/diff_display.html', context)

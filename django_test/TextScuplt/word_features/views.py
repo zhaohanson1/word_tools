@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .forms import DiffForm
-
 import json
 import itertools
 
@@ -40,7 +39,7 @@ def display(request):
     for r in diff_ranges[1]:
         for i in range(r[0], r[1]+1):
             removed.add(i)
-
+    
     context = {
         'text_1': text_1_list,
         'text_2': text_2_list,

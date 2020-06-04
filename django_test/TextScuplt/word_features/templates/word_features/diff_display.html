@@ -1,5 +1,6 @@
 {% extends 'word_features/word_template.html' %}
 {% load static %}
+{% load nbsp %}
 
 {% block stylesheet %}
     <link rel='stylesheet' href={% static 'word_features/css/diff.css' %}> 
@@ -27,7 +28,7 @@
             {% else %}
             <td>
             {% endif %}
-                {{ line1 }}
+                {{ line1|nbsp}}
             </td>
 
             <th> {{ forloop.counter }} </th>
@@ -37,7 +38,7 @@
             {% else %}
             <td>
             {% endif %}
-                {{ line2 }}
+                {{ line2 |nbsp}}
             </td>
         </tr>
     {% endfor %}

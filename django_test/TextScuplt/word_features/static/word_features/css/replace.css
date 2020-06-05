@@ -1,4 +1,12 @@
-#content textarea{
+#content {
+    max-width: 1200px;
     width: 100%;
+    margin: 40px auto;
+}
+
+#content textarea{
+    display: block;
+    margin: 0 auto 1em auto;
+    width: 90%;
     resize: none;
 }

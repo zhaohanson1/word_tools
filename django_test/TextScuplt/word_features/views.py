@@ -13,7 +13,7 @@ def count(request):
     return render(request, 'word_features/count.html')
 
 def replace(request):
-    return render(request, 'word_features/word_replace.html')
+    return render(request, 'word_features/replace.html')
 
 def diff(request):
     if request.method == 'POST':

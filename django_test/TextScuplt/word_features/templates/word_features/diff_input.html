@@ -1,0 +1,34 @@
+{% extends 'word_features/word_template.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel='stylesheet' href={% static 'word_features/css/diff.css' %}>
+{% endblock %}
+
+
+{% block title%} Text Diff {% endblock %}
+{% block content %}
+
+<h2 class='text-center'>Compare Text</h2>
+<form action='/diff' method='post' id='diff-form'>
+{% csrf_token %}
+{{form.ranges}}
+<div class='d-sm-flex flex-column flex-wrap justify-content-center'>
+    <div class='mx-4 my-2'>
+        {{ form.text_1.label_tag }}
+        {{ form.text_1 }}
+    </div>
+    <div class='mx-4 my-2'>
+        {{ form.text_2.label_tag }}
+        {{ form.text_2 }}
+    </div>
+    <button id='compare-button' class='btn btn-primary'>Submit</button>
+</div>
+
+</form>
+{% endblock content %}
+
+{% block body_scripts %}
+<script src={% static 'word_features/js/word_functions.js' %}></script>
+<script src={% static 'word_features/js/diff_controller.js' %}></script>
+{% endblock body_scripts %}

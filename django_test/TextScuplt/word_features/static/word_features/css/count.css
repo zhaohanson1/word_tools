@@ -1,31 +1,26 @@
 #content {
     max-width: 1200px;
     width: 100%;
-    margin: 60px auto;
-}
-
-#content div {
-    border: 1px solid red;
+    margin: 40px auto;
 }
 
 #text-div {
-    flex: 75%;
+    flex: 70%;
 }
 
 #count-info {
-    flex: 25%;
+    flex: 30%;
 }
 
 #textarea {
-    height: 75%;
-    width: 90%;
+    width: 100%;
     margin: 1em 1em 2em 1em;
     resize: none;
 }
 
 .count-display {
     margin: auto;
-    padding: 1em;
+    padding: 1em 2em;
 }
 
 .count-label {
@@ -36,4 +31,8 @@
 .count-value {
     text-align: center;
     font-size: 2em;
+}
+
+.count-display div{
+    border: 1px solid black;
 }

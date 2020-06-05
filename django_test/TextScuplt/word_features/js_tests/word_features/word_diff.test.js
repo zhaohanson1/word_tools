@@ -2,7 +2,7 @@ QUnit.module('Line Diff');
 
 
 QUnit.test('No difference', function(assert) {
-    var ld = new LineDiff();
+    let ld = new LineDiff();
     let a = 'Hello World!';
     let b = 'Hello World!';
     let acutal = ld.diff(a,b);
@@ -12,7 +12,7 @@ QUnit.test('No difference', function(assert) {
 
 
 QUnit.test('Line Test case 1: Change line', function(assert) {
-    var ld = new LineDiff();
+    let ld = new LineDiff();
     let a = `abc
             def
             abc

@@ -10,7 +10,7 @@ def index(request):
     return render(request, 'word_features/base.html')
 
 def count(request):
-    return render(request, 'word_features/word_count.html')
+    return render(request, 'word_features/count.html')
 
 def replace(request):
     return render(request, 'word_features/word_replace.html')

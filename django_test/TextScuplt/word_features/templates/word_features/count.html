@@ -17,18 +17,18 @@
             <div id='word-count-value' class='count-value'>0</div>
         </div>
         <div class='count-display'>
-            <div class='count-label'>LABEL</div>
-            <div class='count-value'>69</div>
+            <div id='line-count-label' class='count-label'>Line Count</div>
+            <div id='line-count-value' class='count-value'>0</div>
         </div>
         <div class='count-display'>
-            <div class='count-label'>LABEL</div>
-            <div class='count-value'>69</div>
+            <div id='char-count-label' class='count-label'>Character Count</div>
+            <div id='char-count-value' class='count-value'>0</div>
         </div>
     <div>
 <div>
 {% endblock  %}
 
 {% block body_scripts %}
-    <script src={% static 'word_features/js/word_functions.js' %}></script>
-    <script src={% static 'word_features/js/word_count_controller.js' %}></script>
+    <script src={% static 'word_features/js/count/count_functions.js' %}></script>
+    <script src={% static 'word_features/js/count/count_controller.js' %}></script>
 {% endblock body_scripts %}

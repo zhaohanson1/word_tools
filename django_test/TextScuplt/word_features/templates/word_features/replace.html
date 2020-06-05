@@ -7,9 +7,11 @@
 {% block title%} Word Replace {% endblock %}
 
 {% block content %}
+<h2 class='text-center'>Replace</h2>
 <div class='d-sm-flex flex-column flex-wrap justify-content-center'>
-    <div class='p-2'>
+    <div class='px-3'>
         <label for='input-text'>Input:</label>
+        <br>
         <textarea id='input-text' 
             autocomplete='off' 
             rows='8' 
@@ -25,8 +27,9 @@
             <input id='repl-text-input' type='text'>
         </div>
     </div>
-    <div class='p-2'>
+    <div class='px-3'>
         <label for='output-text'>Output: </label>
+        <br>
         <textarea readonly 
             id='output-text'
             autocomplete='off'

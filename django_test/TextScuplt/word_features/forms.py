@@ -2,7 +2,7 @@ from django import forms
 
 class DiffForm(forms.Form):
     textarea_attr = {
-        'rows': 8,
+        'rows': 10,
         'autocomplete': 'off',
         'wrap': 'off'
         }

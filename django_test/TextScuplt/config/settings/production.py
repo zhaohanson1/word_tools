@@ -27,8 +27,12 @@ SECRET_KEY = 'I_AM_A_DUMMY_KEY_CHANGE_ME'
 # DEBUG = True
 DEBUG = False
 
-HEROKU_URL = ''
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', HEROKU_URL]
+
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1', 
+    '.herokuapp.com'
+]
 
 
 # Application definition

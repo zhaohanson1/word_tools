@@ -1,0 +1,1 @@
+web: gunicorn TextScuplt.wsgi --log-file -

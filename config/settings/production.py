@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY = 'I_AM_A_DUMMY_KEY_CHANGE_ME'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'I_AM_A_DUMMY_KEY_CHANGE_ME')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -91,6 +93,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -134,6 +138,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Security
 
+"""
 # Time to wait before allowing a connection 
 # that failed to connect through HTTPS to reconnect
 SECURE_HSTS_SECONDS = 60
@@ -156,6 +161,7 @@ CSRF_COOKIE_SECURE = True
 # Sets Referrer policy to value if not set
 # I just chose 'origin' on a whim
 SECURE_REFERRER_POLICY = 'origin'
+"""
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

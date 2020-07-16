@@ -48,5 +48,8 @@ def display(request):
         'removed': removed,
         'form': DiffForm()
     }
+
+    context['form'].fields['text_1'].initial = request.POST['text_1']
+    context['form'].fields['text_2'].initial = request.POST['text_2']
     
     return render(request, 'word_features/diff_display.html', context)

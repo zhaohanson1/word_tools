@@ -1,0 +1,24 @@
+{% extends 'word_features/base.html' %}
+{% load static %}
+
+{% block title%} Word Tools - Blah Blah {% endblock %}
+
+{% block content %}
+<div class='container d-flex align-items-center flex-wrap'>
+{% for tool in all_tools %}
+
+<div class='m-4 card' style='min-width: 18rem; min-height: 9rem'>
+    <div class='card-body'>
+        <h5 class='card-title'>{{ tool.name }}</h5>
+        <p class='card-text'>{{tool.description}}</p>
+        <a class="btn btn-primary stretched-link" href="{% url tool.url %}">Click</a>
+    </div>
+</div>
+{% endfor %}
+<div class='m-4 card' style='min-width: 18rem;'>
+    <div class='card-body'>
+        <h5> Coming Soon... <h5>
+    </div>
+</div>    
+</div>
+{% endblock %}

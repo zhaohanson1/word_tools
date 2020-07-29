@@ -12,7 +12,6 @@ body {
 
 
 #content {
-    max-width: 1200px;
-    margin: 50px auto;
+    margin: 50px 10vw;
     border: 1px solid black;
 }

@@ -27,7 +27,7 @@
         <div class='collapse navbar-collapse'>
             <ul class='navbar-nav'>
                 {% for tool in all_tools %}
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url tool.url %}" >{{ tool.name }}</a>
                 </li>
                 {% endfor %}

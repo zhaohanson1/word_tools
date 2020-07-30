@@ -7,7 +7,7 @@ import json
 import itertools
 
 def index(request):
-    return render(request, 'word_features/base.html')
+    return render(request, 'word_features/index.html')
 
 def count(request):
     return render(request, 'word_features/count.html')

@@ -8,4 +8,7 @@ register = template.Library()
 
 @register.filter()
 def nbsp(value):
+    """
+    Used in diff_display, otherwise whitespaces will not be rendered.
+    """
     return mark_safe("&nbsp;".join(conditional_escape(value).split(' ')))

@@ -1,23 +1,13 @@
+let textArea = document.getElementById('textarea');
+let wordCountVal = document.getElementById('word-count-value');
+let lineCountVal = document.getElementById('line-count-value');
+let charCountVal = document.getElementById('char-count-value');
+
 function updateCount() {
-    let input = $('#textarea').val();
-    updateWordCount(input);
-    updateLineCount(input);
-    updateCharCount(input);
+    let input = textArea.value;
+    wordCountVal.innerHTML = countWords(input);
+    lineCountVal.innerHTML = countLines(input);
+    charCountVal.innerHTML = countChars(input);
 };
 
-function updateWordCount(input) {
-    let count = wordCount(input);
-    $('#word-count-value').text(count);
-}
-
-function updateLineCount(input) {
-    let count = lineCount(input);
-    $('#line-count-value').text(count);
-}
-
-function updateCharCount(input) {
-    let count = charCount(input);
-    $('#char-count-value').text(count);
-}
-
-$('#textarea').on('input', updateCount);
+textArea.addEventListener('input', updateCount);

@@ -1,3 +1,7 @@
+body {
+    margin: 0 auto;
+}
+
 #header {
     border: 1px solid lightgrey;
 }
@@ -6,17 +10,15 @@
     margin-left: 7%;
 }
 
-body {
-    margin: 0 auto;
-}
-
 #content {
     margin: 50px 10vw;
     border: 1px solid black;
     border-radius: 20px;
 }
 
+
 /* TODO: Update to Bootstrap 4.3 */
+
 .stretched-link::after {
     position: absolute;
     top: 0;
@@ -26,7 +28,7 @@ body {
     z-index: 1;
     pointer-events: auto;
     content: "";
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .card:hover {

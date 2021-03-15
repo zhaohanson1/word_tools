@@ -18,14 +18,16 @@
 <body>
     <div id='header'>
         {% block header %}
-        <nav class='navbar navbar-expand-md navbar-dark bg-dark'>
+        <nav class='navbar navbar-expand-md navbar-light bg-light'>
             <span class='navbar-brand' id='logo'>
-            <a href="{% url 'index' %}"> LOGO </a>
+            <a href="{% url 'index' %}"> 
+                <img src="{% static 'word_features/images/logo.png' %}" width='48px'>
+            </a>
             </span>
         <div class='collapse navbar-collapse'>
             <ul class='navbar-nav'>
                 {% for tool in all_tools %}
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url tool.url %}" >{{ tool.name }}</a>
                 </li>
                 {% endfor %}
@@ -37,7 +39,7 @@
 
     <div id="content">
         {% block content %}
-        <div class=' d-flex justify-content-center align-items-center'> 
+        <div class='d-flex justify-content-center align-items-center'> 
         TEST 
         </div>
         {% endblock %}
@@ -52,6 +54,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
         crossorigin="anonymous"></script>
+    <!-- Popper: dev version-->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src={% static 'word_features/js/util.js'%}></script>
     {% block body_scripts %} {% endblock body_scripts %}
 </body>
 </html>

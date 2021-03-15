@@ -4,16 +4,10 @@
     margin: 40px auto;
 }
 
-#content textarea{
+#content textarea {
     width: 100%;
     resize: none;
     font-size: 14px;
-}
-
-#compare-button {
-    margin: auto;
-    margin-top: 1em;
-    max-width: 100px;
 }
 
 .added {
@@ -31,15 +25,16 @@
     font-size: 14px;
 }
 
-#diff-table td, #diff-table th{
+#diff-table td,
+#diff-table th {
     border: 0;
 }
 
 #diff-table tbody th {
     font-weight: 400;
     color: darkgray;
-    width:1%;
-    white-space:nowrap;
+    width: 1%;
+    white-space: nowrap;
 }
 
 #diff-table tbody td {

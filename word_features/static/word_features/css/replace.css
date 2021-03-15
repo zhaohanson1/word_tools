@@ -4,14 +4,10 @@
     margin: 40px auto;
 }
 
-#content textarea{
+#content textarea {
     display: block;
     margin: 0 auto 1em auto;
     width: 90%;
     resize: none;
     font-size: 14px;
-}
-
-#regex-toggle {
-    font-size: 16px;
 }

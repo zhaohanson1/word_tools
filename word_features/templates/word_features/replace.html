@@ -22,10 +22,6 @@
         <div> 
             <label for='regex-input'> Find text:  </label>
             <input id='regex-input' type='text'>
-            <div id='regex-toggle'>
-                <label for='regex-box'> Regex </label>
-                <input id='regex-box' type='checkbox' name='regex'>
-            </div>
         </div>
         
         <div>
@@ -33,10 +29,12 @@
             <input id='repl-text-input' type='text'>
         </div>
         <div>
-            <div>
-                <button type="button" id='swap-btn' class="btn btn-primary btn-sm">Swap</button>
-                <button type="button" id='undo-btn' class="btn btn-primary btn-sm">Undo</button>
-            </div>
+            <label for='regex-box'> Regex </label>
+            <input id='regex-box' type='checkbox' name='regex'>
+        </div>
+        <div>
+            <button type="button" id='swap-btn' class="btn btn-primary btn-sm">Swap</button>
+            <button type="button" id='undo-btn' class="btn btn-primary btn-sm">Undo</button>
         </div>
     </div>
     <div class='px-3'>

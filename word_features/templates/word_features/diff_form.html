@@ -1,3 +1,4 @@
+{% load static %}
 <h2 class='pt-1 text-center'>Compare Text</h2>
 <form action='/diff' method='post' id='diff-form'>
 {% csrf_token %}
@@ -10,8 +11,12 @@
         <br>
         {{ form.text_1 }}
     </div>
-    <div class='text-center'>
-        <button type="button" id='swap-btn' class="btn btn-primary btn-sm">Swap</button>
+    <div class='text-center' tabindex='-1'>
+        <button type="button" id='swap-btn' class="btn btn-sm">
+            <img src={% static 'word_features/images/sort.svg' %}
+                width='20'>
+                </img>
+        </button>
     </div>
     <div class='mx-4'>
         {{ form.text_2.label_tag }}

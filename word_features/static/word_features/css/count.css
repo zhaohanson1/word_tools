@@ -1,6 +1,6 @@
 #content {
     max-width: 1200px;
-    width: 100%;
+    width: 95%;
     margin: 40px auto;
 }
 
@@ -25,14 +25,15 @@
 
 .count-label {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
+    padding: 0 .5em;
 }
 
 .count-value {
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
-.count-display div{
+.count-display div {
     border: 1px solid black;
 }

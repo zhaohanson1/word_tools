@@ -7,7 +7,7 @@
 {% block title%} Word Replace {% endblock %}
 
 {% block content %}
-<h2 class='text-center'>Replace</h2>
+<h2 class='text-center p-1'>Replace</h2>
 <div class='d-sm-flex flex-column flex-wrap justify-content-center'>
     <div class='px-3'>
         <label for='input-text'>Input:</label>
@@ -18,7 +18,7 @@
             rows='9'
             wrap='off'></textarea>
     </div>
-    <div class='d-sm-flex justify-content-sm-around'>
+    <div class='px-3 d-sm-flex justify-content-sm-around'>
         <div> 
             <label for='regex-input'> Find text:  </label>
             <input id='regex-input' type='text'>
@@ -37,7 +37,7 @@
             <button type="button" id='undo-btn' class="btn btn-primary btn-sm">Undo</button>
         </div>
     </div>
-    <div class='px-3'>
+    <div class='px-3 py-2'>
         <label for='output-text'>Output: </label>
         {% include "word_features/clipboard_button.html" with area_name='output-text' %}
         <br>

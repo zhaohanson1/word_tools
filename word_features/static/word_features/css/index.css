@@ -2,12 +2,12 @@ body {
     margin: 0 auto;
 }
 
-#header {
-    border: 1px solid lightgrey;
+#logo {
+    margin: 0 5%;
 }
 
-#logo {
-    margin-left: 7%;
+.nav-link {
+    font-size: larger;
 }
 
 #content {

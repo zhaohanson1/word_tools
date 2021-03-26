@@ -1,4 +1,13 @@
 /**
+ * Escapes regex symbols
+ * @param {string} str
+ * @returns {string}
+ */
+function escapeRegExp(str) {
+    return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+/**
  * Replace the next instance of the pattern starting at startIndex
  * @param {string} inputString      The input text
  * @param {int} startIndex          Starting index, inclusive
@@ -29,6 +38,25 @@ function replaceAll(inputString, pattern, repl){
 }
 
 
-function escapeRegExp(str) {
-    return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+/**
+ * Replace all substrings that match regular expression 
+ * If pattern is an invalid regex, treat pattern as normal string
+ * @param {string} inputString
+ * @param {string} pattern
+ * @param {string} repl
+ * @returns {string}     The resulting string
+ */
+function regexReplaceAll(inputString, pattern, repl) {
+    if (pattern == '')  return inputString;
+    try {
+        p = new RegExp(pattern, 'g');
+    } catch (e) {
+        if (e instanceof SyntaxError) {
+            p = new RegExp(escapeRegExp(pattern), 'g');
+        } else {
+            throw e;
+        }
+    } finally {
+        return inputString.replace(p, repl);
+    }
 }

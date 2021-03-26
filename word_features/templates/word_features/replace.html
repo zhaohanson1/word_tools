@@ -7,9 +7,9 @@
 {% block title%} Word Replace {% endblock %}
 
 {% block content %}
-<h2 class='text-center'>Replace</h2>
+<h2 class='text-center p-1'>Replace</h2>
 <div class='d-sm-flex flex-column flex-wrap justify-content-center'>
-    <div class='px-3'>
+    <div class='mx-4'>
         <label for='input-text'>Input:</label>
         {% include "word_features/clipboard_button.html" with area_name='input-text' %}
         <br>
@@ -18,17 +18,26 @@
             rows='9'
             wrap='off'></textarea>
     </div>
-    <div class='d-sm-flex justify-content-sm-around'>
+    <div class='mx-4 my-1 d-sm-flex justify-content-sm-around'>
         <div> 
             <label for='regex-input'> Find text:  </label>
             <input id='regex-input' type='text'>
         </div>
-        <div> 
+        
+        <div>
             <label for='repl-text-input'> Replace with: </label>
             <input id='repl-text-input' type='text'>
         </div>
+        <div>
+            <input id='regex-box' type='checkbox' name='regex'>
+            <label for='regex-box'> Regex </label>
+        </div>
+        <div>
+            <button type="button" id='swap-btn' class="btn btn-primary btn-sm m-1">Swap</button>
+            <button type="button" id='undo-btn' class="btn btn-primary btn-sm m-1">Undo</button>
+        </div>
     </div>
-    <div class='px-3'>
+    <div class='mx-4 mb-4'>
         <label for='output-text'>Output: </label>
         {% include "word_features/clipboard_button.html" with area_name='output-text' %}
         <br>

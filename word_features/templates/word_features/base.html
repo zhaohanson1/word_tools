@@ -18,22 +18,7 @@
 <body>
     <div id='header'>
         {% block header %}
-        <nav class='navbar navbar-expand-md navbar-light bg-light'>
-            <span class='navbar-brand' id='logo'>
-            <a href="{% url 'index' %}"> 
-                <img src="{% static 'word_features/images/logo.png' %}" width='48px'>
-            </a>
-            </span>
-        <div class='collapse navbar-collapse'>
-            <ul class='navbar-nav'>
-                {% for tool in all_tools %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url tool.url %}" >{{ tool.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        </nav>
+        {%include "word_features/header.html" %}
         {% endblock %}
     </div>
 
@@ -56,7 +41,7 @@
         crossorigin="anonymous"></script>
     <!-- Popper: dev version-->
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-    <script src={% static 'word_features/js/clipboard.js'%}></script>
+    <script src={% static 'word_features/js/util.js'%}></script>
     {% block body_scripts %} {% endblock body_scripts %}
 </body>
 </html>

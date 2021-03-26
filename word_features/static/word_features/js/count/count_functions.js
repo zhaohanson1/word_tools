@@ -12,7 +12,7 @@ function isNewLine(ch) {
  * @returns {Number}    The number of words in inputString
  *                      If input is invalid, return -1;
  */
-function wordCount(inputString) {
+function countWords(inputString) {
 
     if (typeof inputString != 'string')
         return -1;
@@ -40,12 +40,12 @@ function wordCount(inputString) {
 
 
 /**
- *
+ * Return the number of characters
  *
  * @param {String} inputString
  * @returns {Number}
  */
-function charCount(inputString) {
+function countChars(inputString) {
     return (inputString.replace(/\n/g, '')).length;
 }
 
@@ -57,6 +57,6 @@ function charCount(inputString) {
  * @param {String} inputString
  * @returns {Number}
  */
-function lineCount(inputString) {
+function countLines(inputString) {
     return (inputString.match(/\n/g) || '').length;
 }

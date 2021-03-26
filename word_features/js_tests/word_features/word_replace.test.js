@@ -61,14 +61,24 @@ QUnit.test('Multiple replacements', function(assert) {
     assert.equal(replaceAll(inputText, 'barb', 'b'), expectedText);
 });
 
-/*
+
 QUnit.test('Test regexp', function(assert) {
+
+    var inputText = 'foobar';
+    var expectedText = 'febar';
+    assert.equal(regexReplaceAll(inputText, 'o+', 'e'), expectedText);
+
+    var inputText = 'foob[aor';
+    var expectedText = 'foober';
+    assert.equal(regexReplaceAll(inputText, '[ao', 'e'), expectedText);
+    
     var inputText = 'foobar';
     var expectedText = 'feeber';
-    assert.equal(replaceAll(inputText, '[ao]', 'e'), expectedText);
+    assert.equal(regexReplaceAll(inputText, '[ao]', 'e'), expectedText);
 
     var inputText = 'foobar123';
     var expectedText = 'foobareee';
-    assert.equal(replaceAll(inputText, '\\d', 'e'), expectedText);
+    assert.equal(regexReplaceAll(inputText, '\\d', 'e'), expectedText);
+
+    
 });
-*/

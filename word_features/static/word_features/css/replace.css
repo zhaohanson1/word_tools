@@ -1,13 +1,16 @@
 #content {
     max-width: 1200px;
-    width: 100%;
+    width: 95%;
     margin: 40px auto;
 }
 
-#content textarea{
-    display: block;
-    margin: 0 auto 1em auto;
-    width: 90%;
+textarea {
+    width: 100%;
+    height: calc((100vh - 74px) * .25);
     resize: none;
     font-size: 14px;
+}
+
+input {
+    margin: 1px;
 }

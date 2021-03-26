@@ -1,6 +1,7 @@
 #content {
     max-width: 1200px;
     width: 95%;
+    height: 75vh;
     margin: 40px auto;
 }
 
@@ -12,9 +13,10 @@
     flex: 30%;
 }
 
-#textarea {
+textarea {
     width: 100%;
     margin: 1em 1em 2em 1em;
+    height: 60vh;
     resize: none;
 }
 

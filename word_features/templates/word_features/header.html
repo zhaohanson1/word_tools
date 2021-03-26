@@ -1,0 +1,18 @@
+{% load static %}
+
+<nav class='navbar navbar-expand-md navbar-dark bg-dark'>
+    <span class='navbar-brand' id='logo'>
+        <a href="{% url 'index' %}"> 
+            <img src="{% static 'word_features/images/logo2.png' %}" heigth='48px' width='48px'>
+        </a>
+    </span>
+    <div class='collapse navbar-collapse'>
+        <ul class='navbar-nav'>
+            {% for tool in all_tools %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url tool.url %}" >{{ tool.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>

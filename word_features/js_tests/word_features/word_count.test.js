@@ -1,7 +1,7 @@
 /* global QUnit */
 
 
-QUnit.module('Word count');
+QUnit.module('Count');
 
 QUnit.test('Hello world!', function(assert) {
     var inputString = 'Hello world!';
@@ -90,3 +90,19 @@ QUnit.test('Lorum ipsum', function(assert) {
     var count = countWords(inputString);
     assert.equal(count, 100);
 });
+
+QUnit.test('Line Count', function(assert) {
+    var inputString, count;
+
+    inputString = 'Hello World!';
+    count = countLines(inputString);
+    assert.equal(count, 1);
+
+    inputString = '';
+    count = countLines(inputString);
+    assert.equal(count, 0);
+
+    inputString = 'Hello \nWorld!';
+    count = countLines(inputString);
+    assert.equal(count, 2);
+})

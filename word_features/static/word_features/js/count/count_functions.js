@@ -17,7 +17,7 @@ function countWords(inputString) {
     if (typeof inputString != 'string')
         return -1;
 
-    let count = 0; 
+    let count = 0;
     let i = 0;
     while (i < inputString.length) {
         let ch = inputString[i];
@@ -58,5 +58,7 @@ function countChars(inputString) {
  * @returns {Number}
  */
 function countLines(inputString) {
-    return (inputString.match(/\n/g) || '').length;
+    if (inputString == '')
+        return 0;
+    return (inputString.match(/\n/g) || '').length + 1;
 }

@@ -1,8 +1,13 @@
 #content {
+    min-height: 350px;
     max-width: 1200px;
     width: 95%;
     height: 75vh;
     margin: 40px auto;
+}
+
+.count-display div {
+    border: 1px solid black;
 }
 
 #text-div {
@@ -15,27 +20,52 @@
 
 textarea {
     width: 100%;
-    margin: 1em 1em 2em 1em;
-    height: 60vh;
     resize: none;
+    min-height: 270px;
 }
 
 .count-display {
     margin: auto;
-    padding: 1em 2em;
 }
 
 .count-label {
     text-align: center;
     font-size: 1em;
-    padding: 0 .5em;
 }
 
 .count-value {
     text-align: center;
-    font-size: 1.5em;
 }
 
-.count-display div {
-    border: 1px solid black;
+@media only screen and (max-height: 600px) {
+    textarea {
+        margin-left: 1em;
+        height: 50vh;
+    }
+    .count-display {
+        padding: .5em 2em;
+    }
+    .count-label {
+        padding: 0;
+    }
+    .count-value {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-height: 601px) {
+    textarea {
+        margin: 1em 1em 2em 1em;
+        height: 60vh;
+    }
+    .count-display {
+        margin: auto;
+        padding: 1em 2em;
+    }
+    .count-label {
+        padding: .5em;
+    }
+    .count-value {
+        font-size: 1.5em;
+    }
 }

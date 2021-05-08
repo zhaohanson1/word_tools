@@ -11,6 +11,9 @@ textarea {
     font-size: 14px;
 }
 
-input {
-    margin: 1px;
+.pattern {
+    margin: .5em;
+    width: auto;
+    height: auto;
+    resize: initial;
 }

@@ -8,9 +8,16 @@ textarea {
     width: 100%;
     height: calc((100vh - 74px) * .25);
     resize: none;
-    font-size: 14px;
 }
 
-input {
-    margin: 1px;
+textarea.pattern {
+    width: auto;
+    height: auto;
+    resize: initial;
+    margin: .25em .5em;
+}
+
+label {
+    white-space: nowrap;
+    margin: 0;
 }

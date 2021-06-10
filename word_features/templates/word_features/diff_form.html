@@ -7,7 +7,8 @@
     <div class='mx-4'>
         {{ form.text_1.label_tag }}
         
-        {% include "word_features/clipboard_button.html" with area_name=form.text_1.id_for_label %}
+        {% include "word_features/copy_button.html" with area_name=form.text_1.id_for_label %}
+        {% include "word_features/paste_button.html" with area_name=form.text_1.id_for_label %}
         <br>
         {{ form.text_1 }}
     </div>
@@ -20,7 +21,8 @@
     </div>
     <div class='mx-4'>
         {{ form.text_2.label_tag }}
-        {% include "word_features/clipboard_button.html" with area_name=form.text_2.id_for_label %}
+        {% include "word_features/copy_button.html" with area_name=form.text_2.id_for_label %}
+        {% include "word_features/paste_button.html" with area_name=form.text_2.id_for_label %}
         <br>
         {{ form.text_2 }}
     </div>

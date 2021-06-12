@@ -11,7 +11,8 @@
 <div class='d-sm-flex flex-column flex-wrap justify-content-center'>
     <div class='mx-4'>
         <label for='input-text'>Input:</label>
-        {% include "word_features/clipboard_button.html" with area_name='input-text' %}
+        {% include "word_features/copy_button.html" with area_name='input-text' %}
+        {% include "word_features/paste_button.html" with area_name='input-text' %}
         <br>
         <textarea id='input-text' 
             autocomplete='off' 
@@ -39,7 +40,7 @@
     </div>
     <div class='mx-4 mb-4'>
         <label for='output-text'>Output: </label>
-        {% include "word_features/clipboard_button.html" with area_name='output-text' %}
+        {% include "word_features/copy_button.html" with area_name='output-text' %}
         <br>
         <textarea readonly 
             id='output-text'

@@ -1,0 +1,16 @@
+{% load static %}
+<button type='button' 
+    class='btn btn-sm m-1' 
+    data-textarea-name={{area_name}} 
+    onclick='copyTextAreaToClipboard(event)'
+    data-toggle='tooltip'
+    data-placement='right'
+    data-trigger='hover'
+    title='Copy to Clipboard'
+    aria-label='Copy to Clipboard'
+    tabindex='-1'>
+    <img src={% static 'word_features/images/copy.png' %}
+        width='20'
+        style='pointer-events: none;'>
+        </img>
+</button>
